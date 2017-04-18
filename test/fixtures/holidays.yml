@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  cover_photo: MyString
+  location: MyString
+  nearest_airport: MyString
+  attractions: MyString
+  when_to_go: MyString
+  description: MyText
+  image_one: MyString
+  image_two: MyString
+  image_three: MyString
+  image_four: MyString
+  user: one
+
+two:
+  cover_photo: MyString
+  location: MyString
+  nearest_airport: MyString
+  attractions: MyString
+  when_to_go: MyString
+  description: MyText
+  image_one: MyString
+  image_two: MyString
+  image_three: MyString
+  image_four: MyString
+  user: two
