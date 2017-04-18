@@ -3,7 +3,7 @@ require 'date'
 class SkyscannerController < ApplicationController
 
   def flights
-    duration = Date.today + 7
+    duration = Date.today + 1
     base_url = 'http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/UK/GBP/en-GB/LON/'
 
 
