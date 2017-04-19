@@ -1,12 +1,11 @@
 class User < ApplicationRecord
   has_secure_password validations: false
-
-  # mount_uploader :image, ImageUploader
+  mount_uploader :image, ImageUploader
 
   has_many :holidays
-  has_many :groups
-  
+
   has_many :groups_created, class_name: "Group", foreign_key: "creator_id"
+  has_and_belongs_to_many :groups_attending, class_name: "Group", join_table: "groups_users"
 
   validates :username, presence: true
   validates :email, presence: true, uniqueness: true, unless: :oauth_login?

@@ -1,5 +1,7 @@
 class Holiday < ApplicationRecord
+  # mount_uploader :image, ImageUploader
+
   belongs_to :user
   has_many :users
-  has_many :groups
+  belongs_to :group
 end

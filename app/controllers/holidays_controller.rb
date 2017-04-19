@@ -15,8 +15,8 @@ class HolidaysController < ApplicationController
 
   # POST /holidays
   def create
-    # @holiday = Holiday.new(holiday_params)
-    @holiday = Holiday.new(Uploader.upload(holiday_params))
+    @holiday = Holiday.new(holiday_params)
+    # @holiday = Holiday.new(Uploader.upload(holiday_params))
     @holiday.user = current_user
 
     if @holiday.save
@@ -48,6 +48,6 @@ class HolidaysController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def holiday_params
-      params.require(:holiday).permit(:cover_photo, :location, :nearest_airport, :attractions, :when_to_go, :description, :image_one, :image_two, :image_three, :image_four, :user_id)
+      params.require(:holiday).permit(:cover_photo, :location, :nearest_airport, :attractions, :when_to_go, :description, :image_one, :image_two, :image_three, :image_four, :user_id, :creator_id, :group_id)
     end
 end
