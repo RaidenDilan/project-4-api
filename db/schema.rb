@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170419100713) do
+ActiveRecord::Schema.define(version: 20170420154921) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,7 +30,6 @@ ActiveRecord::Schema.define(version: 20170419100713) do
   create_table "holidays", force: :cascade do |t|
     t.string   "cover_photo"
     t.string   "location"
-    t.string   "nearest_airport"
     t.string   "attractions"
     t.string   "when_to_go"
     t.text     "description"
@@ -39,9 +38,13 @@ ActiveRecord::Schema.define(version: 20170419100713) do
     t.string   "image_three"
     t.string   "image_four"
     t.integer  "user_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
     t.integer  "group_id"
+    t.date     "departureDate"
+    t.date     "returnDate"
+    t.string   "departureAirport"
+    t.string   "arrivalAirport"
     t.index ["group_id"], name: "index_holidays_on_group_id", using: :btree
     t.index ["user_id"], name: "index_holidays_on_user_id", using: :btree
   end

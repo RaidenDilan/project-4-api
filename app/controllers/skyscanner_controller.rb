@@ -3,11 +3,10 @@ require 'date'
 class SkyscannerController < ApplicationController
 
   def flights
-    duration = Date.today + 1
+    tomorrow = Date.today + 7
     base_url = 'http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/UK/GBP/en-GB/LON/'
 
-
-    response = HTTParty.get("#{base_url}#{params[:destination]}/#{duration}", {
+    response = HTTParty.get("#{base_url}#{params[:destination]}/#{tomorrow}", {
       query: {
         apiKey: ENV["SKYSCANNER_API_KEY"],
       },
