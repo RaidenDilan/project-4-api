@@ -16,7 +16,6 @@ class HolidaysController < ApplicationController
   # POST /holidays
   def create
     @holiday = Holiday.new(holiday_params)
-    # @holiday = Holiday.new(Uploader.upload(holiday_params))
     @holiday.user = current_user
 
     if @holiday.save
