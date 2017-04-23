@@ -2,7 +2,6 @@ class UserSerializer < ActiveModel::Serializer
   has_many :holidays
   has_many :groups_created
 
-  # filter insmonia preview here
   attributes :id, :username, :image_src, :full_name, :first_name, :last_name, :email, :password, :airport, :bio, :groups_created
 
   def full_name

@@ -1,5 +1,6 @@
 class HolidaysController < ApplicationController
   before_action :set_holiday, only: [:show, :update, :destroy]
+  skip_before_action :authenticate_user!, only: [:index, :show]
 
   # GET /holidays
   def index
@@ -36,6 +37,7 @@ class HolidaysController < ApplicationController
 
   # DELETE /holidays/1
   def destroy
+    return render json: { errors: ["Unauthorized"] } if @holiday.user != current_user
     @holiday.destroy
   end
 

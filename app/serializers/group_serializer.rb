@@ -3,6 +3,5 @@ class GroupSerializer < ActiveModel::Serializer
   belongs_to :creator
   has_many :holidays
 
-  # filter insomnia preview here
   attributes :id, :name, :holidays, :attendee_ids
 end

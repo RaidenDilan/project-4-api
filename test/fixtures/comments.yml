@@ -2,8 +2,10 @@
 
 one:
   body: MyText
-  post: one
+  user: one
+  holiday: one
 
 two:
   body: MyText
-  post: two
+  user: two
+  holiday: two

@@ -6,7 +6,8 @@ class UsersController < ApplicationController
   def index
     @users = User.all
 
-    render json: @users
+    # render json: @users
+    render json: @users, include: ['groups_attending.comments', 'groups_created.comments', 'groups_attending.comments.user', 'groups_created.comments.user']
   end
 
   # GET /users/1
@@ -16,7 +17,7 @@ class UsersController < ApplicationController
 
   # POST /users
   def create
-    # @user = User.new(user_params)
+
     @user = User.new(Uploader.upload(user_params))
 
     if @user.save

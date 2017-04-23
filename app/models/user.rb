@@ -4,6 +4,8 @@ class User < ApplicationRecord
 
   has_many :holidays
 
+  has_many :comments
+  
   has_many :groups_created, class_name: "Group", foreign_key: "creator_id"
   has_and_belongs_to_many :groups_attending, class_name: "Group", join_table: "groups_users"
 

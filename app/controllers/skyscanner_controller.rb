@@ -6,7 +6,6 @@ class SkyscannerController < ApplicationController
     outbound = params[:departDate].split('T').first
     inbound = params[:returnDate].split('T').first
 
-
     base_url = 'http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/UK/GBP/en-GB/'
 
     response = HTTParty.get("#{base_url}#{params[:origin]}/#{params[:destination]}/#{outbound}/#{inbound}", {
