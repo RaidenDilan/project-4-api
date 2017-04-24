@@ -37,31 +37,29 @@ class OauthController < ApplicationController
   end
 
   def facebook
-    token = HTTParty.post('https://facebook.com/login/oauth/access_token', {
+    token = HTTParty.get('https://graph.facebook.com/v2.8/oauth/access_token', {
       query: {
         client_id: ENV["FACEBOOK_CLIENT_ID"],
+        redirect_uri: 'http://localhost:7000/',
         client_secret: ENV["FACEBOOK_CLIENT_SECRET"],
         code: params[:code]
       },
-      headers: { 'Accept' => 'application/json' }
+      headers: { 'Accept' => 'application/json'}
     }).parsed_response
 
-    p token
-
-    profile = HTTParty.get('https://api.facebook.com/user', {
+    profile = HTTParty.get('https://graph.facebook.com/v2.5/me?fields=id,name,email,picture', {
       query: token,
-      headers: { 'User-Agent' => 'HTTParty', 'Accept' => 'application/json' }
+      headers: { 'Accept' => 'application/json' }
     }).parsed_response
 
     p profile
 
-      user = User.where("email = :email OR facebook_id = :facebook_id", email: profile["email"], facebook_id: profile["id"]).first
+    user = User.where("email = :email OR facebook_id = :facebook_id", email: profile["email"], facebook_id: profile["id"]).first
 
-      user = User.new username: profile["login"], email: profile["email"] unless user
+    user = User.new username: profile["name"], email: profile["email"], image:profile["picture"]["data"]["url"] unless user
 
-      user[:github_id] = profile["id"]
-
-    p user
+    user[:facebook_id] = profile["id"]
+    user[:email] = profile["email"]
 
     if user.save
       token = Auth.issue({ id: user.id })
