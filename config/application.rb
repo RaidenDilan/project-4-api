@@ -29,7 +29,7 @@ module Project4
 
     config.middleware.insert_before 0, Rack::Cors do
       allow do
-        origins '*'
+        origins ['localhost:7000', 'https://sheltered-mesa-92041.herokuapp.com']
         resource '*', :headers => :any, :methods => :any
       end
     end
