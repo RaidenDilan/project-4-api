@@ -1,6 +1,6 @@
 class GroupsController < ApplicationController
   before_action :set_group, only: [:show, :update, :destroy]
-  # skip_before_action :authenticate_user!, only: [:index, :show]
+  skip_before_action :authenticate_user!, only: [:index, :show]
 
   # GET /groups
   def index
@@ -28,6 +28,7 @@ class GroupsController < ApplicationController
 
   # PATCH/PUT /groups/1
   def update
+    # return render json: { errors: ["Unauthorized"] } if @group.user != current_user
     if @group.update(group_params)
       render json: @group
     else
@@ -37,6 +38,7 @@ class GroupsController < ApplicationController
 
   # DELETE /groups/1
   def destroy
+    # return render json: { errors: ["Unauthorized"] } if @group.user != current_user
     @group.destroy
   end
 

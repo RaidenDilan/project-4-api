@@ -17,7 +17,6 @@ class UsersController < ApplicationController
 
   # POST /users
   def create
-
     @user = User.new(Uploader.upload(user_params))
 
     if @user.save

@@ -1,6 +1,6 @@
 class User < ApplicationRecord
-  has_secure_password validations: false
   mount_uploader :image, ImageUploader
+  has_secure_password validations: false
 
   has_many :holidays
   has_many :comments

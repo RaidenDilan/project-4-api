@@ -28,6 +28,7 @@ class HolidaysController < ApplicationController
 
   # PATCH/PUT /holidays/1
   def update
+    # return render json: { errors: ["Unauthorized"] } if @holiday.user != current_user
     if @holiday.update(holiday_params)
       render json: @holiday
     else
@@ -37,7 +38,7 @@ class HolidaysController < ApplicationController
 
   # DELETE /holidays/1
   def destroy
-    return render json: { errors: ["Unauthorized"] } if @holiday.user != current_user
+    # return render json: { errors: ["Unauthorized"] } if @holiday.user != current_user
     @holiday.destroy
   end
 
