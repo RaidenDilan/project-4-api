@@ -29,7 +29,7 @@ module Project4
 
     config.middleware.insert_before 0, Rack::Cors do
       allow do
-        origins ['localhost:7000', 'https://desolate-sands-98689.herokuapp.com']
+        origins ['localhost:7000', 'https://palmtrees.herokuapp.com']
         resource '*', :headers => :any, :methods => :any
       end
     end
