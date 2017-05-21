@@ -2,7 +2,7 @@
 
 <center><h1>Project 4: Palm Trees</h1></center>
 
-<center>[Launch Application!](https://palmtrees.herokuapp.com)</center>
+<center>[Launch Application!](https://desolate-sands-98689.herokuapp.com)</center>
 
 ![Imgur](http://i.imgur.com/SKFSDrN.jpg)
 
@@ -46,6 +46,7 @@ One of the more tricky parts of this project was the scope of it, at the start o
 <h5>In Terminal</h5>
 
 <p><strong>Back-End</strong></p>
+
 * rails db:create db:migrate db:seed
 * bundle
 
