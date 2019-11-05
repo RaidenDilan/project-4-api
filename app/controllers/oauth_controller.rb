@@ -8,7 +8,7 @@ class OauthController < ApplicationController
         client_secret: ENV["GITHUB_CLIENT_SECRET"],
         code: params[:code]
       },
-      headers: { 'Accept' => 'application/json' }
+      headers: { 'Accept' => 'application/json' } # I WANT BACK JSON FORMAT, NOTHING ELSE, THIS IS WHAT WE'RE TELLING GITHUB.
     }).parsed_response
 
     p token

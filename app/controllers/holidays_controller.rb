@@ -1,6 +1,6 @@
 class HolidaysController < ApplicationController
   before_action :set_holiday, only: [:show, :update, :destroy]
-  skip_before_action :authenticate_user!, only: [:index, :show]
+  skip_before_action :authenticate_user!, only: [:index, :show] # for any page except for index and show pages
 
   # GET /holidays
   def index
@@ -16,7 +16,7 @@ class HolidaysController < ApplicationController
 
   # POST /holidays
   def create
-    @holiday = Holiday.new(holiday_params)
+    @holiday = Holiday.new(Uploader.upload(holiday_params))
     @holiday.user = current_user
 
     if @holiday.save
@@ -28,8 +28,9 @@ class HolidaysController < ApplicationController
 
   # PATCH/PUT /holidays/1
   def update
-    # return render json: { errors: ["Unauthorized"] } if @holiday.user != current_user
-    if @holiday.update(holiday_params)
+    return render json: { errors: ["Unauthorized"] } if @holiday.user != current_user # if user is not logged in then don't let them access and edit the holidays in INSOMNIA. so don't return the rest of the mehtod unless logged in.
+
+    if @holiday.update(Uploader.upload(holiday_params))
       render json: @holiday
     else
       render json: @holiday.errors, status: :unprocessable_entity
@@ -38,7 +39,8 @@ class HolidaysController < ApplicationController
 
   # DELETE /holidays/1
   def destroy
-    # return render json: { errors: ["Unauthorized"] } if @holiday.user != current_user
+    return render json: { errors: ["Unauthorized"] } if @holiday.user != current_user # if user is not logged in then don't let them access and edit the holidays in INSOMNIA. so don't return the rest of the mehtod unless logged in.
+
     @holiday.destroy
   end
 
@@ -50,6 +52,17 @@ class HolidaysController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def holiday_params
-      params.require(:holiday).permit(:cover_photo, :location, :attractions, :when_to_go, :description, :image_one, :image_two, :image_three, :image_four, :departureDate, :returnDate, :departureAirport, :arrivalAirport, :user_id, :creator_id, :group_id)
+      params.require(:holiday).permit(
+        :base64,
+        :location,
+        :attractions,
+        :when_to_go,
+        :departureDate,
+        :returnDate,
+        :departureAirport,
+        :arrivalAirport,
+        :user_id,
+        :group_id
+      )
     end
 end

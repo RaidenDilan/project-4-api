@@ -1,10 +1,11 @@
 class GroupsController < ApplicationController
   before_action :set_group, only: [:show, :update, :destroy]
-  skip_before_action :authenticate_user!, only: [:index, :show]
+  skip_before_action :authenticate_user!, only: [:index, :show] # for any page except for index and show pages, ...
 
   # GET /groups
   def index
     @groups = Group.all
+    @holidays = Holiday.where('holiday_id = ?', params[:holiday_id])
 
     render json: @groups
   end
@@ -17,6 +18,7 @@ class GroupsController < ApplicationController
   # POST /groups
   def create
     @group = Group.new(group_params)
+    # before we save the new group into our databse we will attach the current user tot the new group.
     @group.creator = current_user
 
     if @group.save
@@ -28,7 +30,8 @@ class GroupsController < ApplicationController
 
   # PATCH/PUT /groups/1
   def update
-    # return render json: { errors: ["Unauthorized"] } if @group.user != current_user
+    return render json: { errors: ["Unauthorized"] } if @group.creator != current_user # if user is not logged in then don't let them access and edit the groups in INSOMNIA. so don't return the rest of the mehtod unless logged in.
+
     if @group.update(group_params)
       render json: @group
     else
@@ -38,7 +41,7 @@ class GroupsController < ApplicationController
 
   # DELETE /groups/1
   def destroy
-    # return render json: { errors: ["Unauthorized"] } if @group.user != current_user
+    return render json: { errors: ["Unauthorized"] } if @group.creator != current_user
     @group.destroy
   end
 
@@ -50,6 +53,11 @@ class GroupsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def group_params
-      params.require(:group).permit(:name, :creator_id, attendee_ids: [])
+      params.require(:group).permit(
+        :name,
+        :holiday_id,
+        :user_id,
+        attendee_ids:[]
+      )
     end
 end

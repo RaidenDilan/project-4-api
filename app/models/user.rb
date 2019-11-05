@@ -1,18 +1,24 @@
 class User < ApplicationRecord
-  mount_uploader :image, ImageUploader
   has_secure_password validations: false
 
+  has_many :groups_created, class_name: "Group", foreign_key: "creator_id"
+  has_many :groups, dependent: :nullify
   has_many :holidays, dependent: :destroy
-  has_many :comments, dependent: :destroy
 
-  has_many :groups_created, class_name: "Group", foreign_key: "creator_id", dependent: :destroy
-  has_and_belongs_to_many :groups_attending, class_name: "Group", join_table: "groups_users", dependent: :destroy
+  has_and_belongs_to_many :groups_attending, class_name: "Group", join_table: "groups_users"
+
+  mount_uploader :image, ImageUploader
 
   validates :username, presence: true
   validates :email, presence: true, uniqueness: true, unless: :oauth_login?
   validates :password, presence: true, confirmation: true, unless: :oauth_login?, on: :create
 
   def oauth_login?
-    github_id.present?
+    github_id.present? || facebook_id.present?
   end
+
+  # private
+  #   def time_format
+  #     created_at.strftime("%d/%m/%y at %l:%M %p")
+  #   end
 end

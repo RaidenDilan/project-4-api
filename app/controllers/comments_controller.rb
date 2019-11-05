@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:show, :update, :destroy]
-  skip_before_action :authenticate_user!, only: [:index, :show]
+  skip_before_action :authenticate_user!, only: [:index, :show] # for any page except for index and show pages
 
   # GET /comments
   def index
@@ -28,6 +28,7 @@ class CommentsController < ApplicationController
 
   # PATCH/PUT /comments/1
   def update
+    return render json: { errors: ["Unauthorized"] } if @comment.user != current_user
     if @comment.update(comment_params)
       render json: @comment
     else
@@ -49,6 +50,10 @@ class CommentsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def comment_params
-      params.require(:comment).permit(:body, :user_id, :holiday_id)
+      params.require(:comment).permit(
+        :body,
+        :holiday_id,
+        :user_id
+      )
     end
 end

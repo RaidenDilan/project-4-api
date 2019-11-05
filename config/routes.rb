@@ -1,11 +1,13 @@
 Rails.application.routes.draw do
   scope :api do
-    resources :comments
-    resources :posts
-    resources :holidays
     resources :users, except: [:create]
-    resources :groups
+    resources :groups do
+      resources :holidays do
+        resources :comments
+      end
+    end
     get 'flights', to: 'skyscanner#flights'
+    # put 'holidays', to: 'holidays#update'
     post 'register', to: 'authentications#register'
     post 'login', to: 'authentications#login'
     post 'oauth/github', to: 'oauth#github'

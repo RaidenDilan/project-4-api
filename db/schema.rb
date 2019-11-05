@@ -38,15 +38,10 @@ ActiveRecord::Schema.define(version: 20170423121319) do
   end
 
   create_table "holidays", force: :cascade do |t|
-    t.string   "cover_photo"
+    t.string   "image"
     t.string   "location"
     t.string   "attractions"
     t.string   "when_to_go"
-    t.text     "description"
-    t.string   "image_one"
-    t.string   "image_two"
-    t.string   "image_three"
-    t.string   "image_four"
     t.integer  "user_id"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false

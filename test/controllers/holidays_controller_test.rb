@@ -12,7 +12,7 @@ class HolidaysControllerTest < ActionDispatch::IntegrationTest
 
   test "should create holiday" do
     assert_difference('Holiday.count') do
-      post holidays_url, params: { holiday: { attractions: @holiday.attractions, cover_photo: @holiday.cover_photo, description: @holiday.description, image_four: @holiday.image_four, image_one: @holiday.image_one, image_three: @holiday.image_three, image_two: @holiday.image_two, location: @holiday.location, nearest_airport: @holiday.nearest_airport, user_id: @holiday.user_id, when_to_go: @holiday.when_to_go } }, as: :json
+      post holidays_url, params: { holiday: { attractions: @holiday.attractions, image: @holiday.image, description: @holiday.description, location: @holiday.location, nearest_airport: @holiday.nearest_airport, user_id: @holiday.user_id, when_to_go: @holiday.when_to_go } }, as: :json
     end
 
     assert_response 201
@@ -24,7 +24,7 @@ class HolidaysControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update holiday" do
-    patch holiday_url(@holiday), params: { holiday: { attractions: @holiday.attractions, cover_photo: @holiday.cover_photo, description: @holiday.description, image_four: @holiday.image_four, image_one: @holiday.image_one, image_three: @holiday.image_three, image_two: @holiday.image_two, location: @holiday.location, nearest_airport: @holiday.nearest_airport, user_id: @holiday.user_id, when_to_go: @holiday.when_to_go } }, as: :json
+    patch holiday_url(@holiday), params: { holiday: { attractions: @holiday.attractions, location: @holiday.location, nearest_airport: @holiday.nearest_airport, user_id: @holiday.user_id, when_to_go: @holiday.when_to_go } }, as: :json
     assert_response 200
   end
 

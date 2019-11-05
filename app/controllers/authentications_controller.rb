@@ -3,6 +3,7 @@ class AuthenticationsController < ApplicationController
 
   def register
     user = User.new(Uploader.upload(user_params))
+
     if user.save
       render json: user, status: :ok
     else
@@ -12,6 +13,7 @@ class AuthenticationsController < ApplicationController
 
   def login
     user = User.find_by_email(params[:email])
+
     if user && user.authenticate(params[:password])
       token = Auth.issue({ id: user.id })
       render json: { token: token, user: UserSerializer.new(user) }, status: :ok
@@ -22,6 +24,14 @@ class AuthenticationsController < ApplicationController
 
   private
   def user_params
-    params.permit(:username, :email, :first_name, :last_name, :bio, :airport, :base64, :password, :password_confirmation)
+    params.permit(
+      :username,
+      :email,
+      :password,
+      :password_confirmation,
+      :base64,
+      :bio,
+      :airport
+    )
   end
 end

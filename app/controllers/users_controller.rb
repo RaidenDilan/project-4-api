@@ -1,13 +1,18 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
-  skip_before_action :authenticate_user!, only: [:index, :show, :destroy]
+  # skip_before_action :authenticate_user!, only: [:index, :show, :destroy] # for any page except for index and show pages
 
   # GET /users
   def index
     @users = User.all
 
     # render json: @users
-    render json: @users, include: ['groups_attending.comments', 'groups_created.comments', 'groups_attending.comments.user', 'groups_created.comments.user']
+    render json: @users, include: [
+      'groups_created.comments', # shows in insomnia when the comment was created
+      'groups_created.comments.user', # shows in insomnia when the group was created
+      'groups_attending.comments.user', # shows in insomnia which user created the comment
+      'groups_attending.comments' # shows in insomnia the comments in that event
+      ]
   end
 
   # GET /users/1
@@ -48,6 +53,15 @@ class UsersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def user_params
-      params.require(:user).permit(:username, :first_name, :last_name, :email, :password, :image, :airport, :bio, :base64, :groups_created, groups_attending_ids: [])
+      params.require(:user).permit(
+        :username,
+        :email,
+        :base64,
+        :bio,
+        :airport,
+        :password,
+        :password_confirmation,
+        groups_attending_ids:[]
+      )
     end
 end
