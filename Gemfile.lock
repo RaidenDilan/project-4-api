@@ -67,6 +67,8 @@ GEM
     erubis (2.7.0)
     excon (0.68.0)
     ffi (1.11.1)
+    flash (0.1.0)
+      thor (~> 0.19.1)
     fog-aws (3.5.2)
       fog-core (~> 2.1)
       fog-json (~> 1.1)
@@ -166,7 +168,7 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    thor (0.20.3)
+    thor (0.19.4)
     thread_safe (0.3.6)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
@@ -183,6 +185,8 @@ DEPENDENCIES
   byebug
   carrierwave
   carrierwave-base64
+  excon
+  flash
   fog-aws
   httparty
   jwt

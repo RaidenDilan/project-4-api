@@ -1,4 +1,4 @@
-[User, Holiday, Group].each do |model|
+[User, Holiday, Group, Membership].each do |model|
   ActiveRecord::Base.connection.execute("TRUNCATE #{model.table_name} RESTART IDENTITY CASCADE")
 end
 
@@ -8,76 +8,29 @@ end
 # time.strftime("%I:%M %p")        # "11:04 PM"
 # time.strftime("Today is %A")     # "Today is Sunday"
 # time.strftime("%d of %B, %Y")    # "21 of December, 2015"
-# time.strftime("Unix time is %s") # "Unix time is 1449336630"
+# time.strftime("Unix time is %s") # "Unix time is 1449336630
+todayDate = Time.new.strftime("%Y/%m/%d") # "05/12/2015"
+# todayDate = Time.new.strftime("%d/%m/%Y") # "05/12/2015"
+# pp todayDate
 
-# puts todayDate
+raiden = User.create!(username: "Raiden", email: "raiden@me.com", image: File.open(File.join(Rails.root, "db/images/avatar.png")), password: "p", password_confirmation: "p", bio: "Software Engineer", airport: "LHR")
+row = User.create!(username: "Row", email: "row@me.com", image: File.open(File.join(Rails.root, "db/images/avatar.png")), password: "p", password_confirmation: "p", bio: "Masseur", airport: "STN")
+luca = User.create!(username: "Luca", email: "luca@me.com", image: File.open(File.join(Rails.root, "db/images/avatar.png")), password: "p", password_confirmation: "p", bio: "Hair Dresser, Hair Stylist", airport: "LGW")
+epp = User.create!(username: "Epp", email: "epp@me.com", image: File.open(File.join(Rails.root, "db/images/avatar.png")), password: "p", password_confirmation: "p", bio: "BM", airport: "LGW")
+ebrio = User.create!(username: "Ebrio", email: "ebrio@me.com", image: File.open(File.join(Rails.root, "db/images/avatar.png")), password: "p", password_confirmation: "p", bio: "BM", airport: "LGW")
 
-todayDate = Time.new.strftime("%d/%m/%Y") # "05/12/2015"
 
-raiden = User.create!(
-  username: "Raiden",
-  email: "raiden@me.com",
-  image: "http://cdn.onlinewebfonts.com/svg/img_568656.png",
-  password: "p",
-  password_confirmation: "p",
-  bio: "Software Engineer",
-  airport: "LHR"
-)
+boys = Group.create!(name: "The Boys", creator: raiden)
+juicers = Group.create!(name: "JQs", creator: raiden)
+kr2 = Group.create!(name: "KR2", creator: epp)
 
-row = User.create!(
-  username: "Row",
-  email: "row@me.com",
-  image: "http://cdn.onlinewebfonts.com/svg/img_568656.png",
-  password: "p",
-  password_confirmation: "p",
-  bio: "Masseur",
-  airport: "STN"
-)
+Membership.create!(group: boys, user: raiden)
+Membership.create!(group: boys, user: luca)
+Membership.create!(group: boys, user: row)
+Membership.create!(group: kr2, user: ebrio)
 
-luca = User.create!(
-  username: "Luca",
-  email: "luca@me.com",
-  image: "http://cdn.onlinewebfonts.com/svg/img_568656.png",
-  password: "p",
-  password_confirmation: "p",
-  bio: "Hair Dresser, Hair Stylist",
-  airport: "LGW"
-)
-
-epp = User.create!(
-  username: "Epp",
-  email: "epp@me.com",
-  image: "http://cdn.onlinewebfonts.com/svg/img_568656.png",
-  password: "p",
-  password_confirmation: "p",
-  bio: "BM",
-  airport: "LGW"
-)
-
-ebrio = User.create!(
-  username: "Ebrio",
-  email: "ebrio@me.com",
-  image: "http://cdn.onlinewebfonts.com/svg/img_568656.png",
-  password: "p",
-  password_confirmation: "p",
-  bio: "BM",
-  airport: "LGW"
-)
-
-boys = Group.create!(
-  name: "The Boys",
-  creator: raiden,
-  attendees: [raiden, row, luca]
-)
-
-juicers = Group.create!(
-  name: "JQs",
-  creator: raiden,
-  attendees: [raiden, epp, ebrio]
-)
-
-Holiday.create!(
-  image: "https://unsplash.com/photos/uWpggIb3iHs",
+maldives = Holiday.create!(
+  image: File.open(File.join(Rails.root, "db/images/maldives-3.jpg")),
   location: "Maldives, South Asia",
   departureAirport: "LHR",
   arrivalAirport: "MLE",
@@ -90,7 +43,7 @@ Holiday.create!(
 )
 
 Holiday.create!(
-  image: "https://unsplash.com/photos/uWpggIb3iHs",
+  image: File.open(File.join(Rails.root, "db/images/home.jpg")),
   location: "Barcelona, Spain",
   departureAirport: "LHR",
   arrivalAirport: "BCN",
@@ -102,7 +55,7 @@ Holiday.create!(
   group: juicers
 )
 
-# Holiday.create!(
+# mykonos = Holiday.create!(
 #   image: "https://www.telegraph.co.uk/travel/destinations/europe/greece/cyclades/mykonos/articles/mykonos-expert-travel-guide/",
 #   location: "Mykonos, Greece",
 #   departureAirport: "LHR",
@@ -115,3 +68,5 @@ Holiday.create!(
 #   user: raiden,
 #   group: boys
 # )
+
+Comment.create!(holiday: maldives, body: "SWEEEET!!!", user: raiden)

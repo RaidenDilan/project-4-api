@@ -5,7 +5,9 @@ class GroupsController < ApplicationController
   # GET /groups
   def index
     @groups = Group.all
+
     @holidays = Holiday.where('holiday_id = ?', params[:holiday_id])
+    # @users = User.where('user_id = ?', params[:user_id])
 
     render json: @groups
   end
@@ -30,7 +32,12 @@ class GroupsController < ApplicationController
 
   # PATCH/PUT /groups/1
   def update
-    return render json: { errors: ["Unauthorized"] } if @group.creator != current_user # if user is not logged in then don't let them access and edit the groups in INSOMNIA. so don't return the rest of the mehtod unless logged in.
+    # if user is not logged in then don't let them access and edit the groups in INSOMNIA
+    return render json: { errors: ["Unauthorized"] } if @group.creator != current_user
+    @group.creator = current_user
+
+    # @group.users << @user unless @group.users.include? @user
+    # @membership = current_user.memberships.find(params[:id])
 
     if @group.update(group_params)
       render json: @group
@@ -56,6 +63,7 @@ class GroupsController < ApplicationController
       params.require(:group).permit(
         :name,
         :holiday_id,
+        :memberships,
         :user_id,
         attendee_ids:[]
       )

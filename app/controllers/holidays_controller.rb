@@ -1,18 +1,26 @@
 class HolidaysController < ApplicationController
   before_action :set_holiday, only: [:show, :update, :destroy]
+  # before_action :get_group, only: [:show, :update, :destroy]
   skip_before_action :authenticate_user!, only: [:index, :show] # for any page except for index and show pages
 
   # GET /holidays
   def index
     @holidays = Holiday.all
+    # @groups = @groups.holidays
 
     render json: @holidays
   end
 
   # GET /holidays/1
   def show
+    @comments = Comment.where('comment_id = ?', params[:comment_id])
+
     render json: @holiday
   end
+
+  # def new
+  #   @groups = @groups.holidays.build
+  # end
 
   # POST /holidays
   def create
@@ -49,6 +57,10 @@ class HolidaysController < ApplicationController
     def set_holiday
       @holiday = Holiday.find(params[:id])
     end
+
+    # def get_group
+    #   @group = Group.find(params[:group_id])
+    # end
 
     # Only allow a trusted parameter "white list" through.
     def holiday_params

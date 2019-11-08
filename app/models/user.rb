@@ -1,11 +1,11 @@
 class User < ApplicationRecord
   has_secure_password validations: false
 
-  has_many :groups_created, class_name: "Group", foreign_key: "creator_id"
-  has_many :groups, dependent: :nullify
-  has_many :holidays, dependent: :destroy
-
-  has_and_belongs_to_many :groups_attending, class_name: "Group", join_table: "groups_users"
+  # has_and_belongs_to_many :groups_attending, class_name: "Group", join_table: "groups_users"
+  # has_many :groups_created, class_name: "Group", foreign_key: "creator_id"
+  has_many :groups, :through => :memberships # has many through memberships join table
+  has_many :memberships, :dependent => :destroy # destroy the user in the members list if the user is deleted
+  has_many :holidays, dependent: :destroy # has_many :groups, dependent: :nullify
 
   mount_uploader :image, ImageUploader
 

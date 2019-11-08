@@ -20,6 +20,8 @@ gem 'puma', '~> 3.0'
 gem 'bcrypt', '~> 3.1.7'
 gem 'jwt'
 gem 'httparty'
+gem 'excon'
+gem 'flash'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
