@@ -1,6 +1,5 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:show, :update, :destroy]
-  # before_action :set_holiday, only: [:create, :show, :update, :destroy]
   skip_before_action :authenticate_user!, only: [:index, :show] # for any page except for index and show pages
 
   # GET /comments
@@ -37,11 +36,7 @@ class CommentsController < ApplicationController
     def set_comment
       @comment = Comment.find(params[:id])
     end
-
-    # def set_holiday
-    #   @holiday = Holiday.find(params[:holiday_id])
-    # end
-
+    
     # Only allow a trusted parameter "white list" through.
     def comment_params
       params.require(:comment).permit(

@@ -1,7 +1,7 @@
 class GroupSerializer < ActiveModel::Serializer
-  belongs_to :creator # NEW => # belongs_to :users
+  belongs_to :creator
 
-  has_many :memberships # ORIGINAL => # has_many :attendees
+  has_many :memberships
   has_many :holidays
   has_many :users
 
