@@ -1,25 +1,14 @@
 class CommentsController < ApplicationController
-  before_action :set_comment, only: [:show, :update, :destroy]
-  skip_before_action :authenticate_user!, only: [:index, :show] # for any page except for index and show pages
-
-  # GET /comments
-  def index
-    @comments = Comment.all
-    render json: @comments
-  end
-
-  # GET /comments/1
-  def show
-    render json: @comment
-  end
+  before_action :set_comment, only: [:destroy]
 
   # POST /comments
   def create
+    # @comment = @holiday.comment.new(comment_params)
     @comment = Comment.new(comment_params)
     @comment.user = current_user
 
     if @comment.save
-      render json: @comment, status: :created
+      render json: @comment, status: :created, location: @comment
     else
       render json: @comment.errors, status: :unprocessable_entity
     end
@@ -36,13 +25,9 @@ class CommentsController < ApplicationController
     def set_comment
       @comment = Comment.find(params[:id])
     end
-    
+
     # Only allow a trusted parameter "white list" through.
     def comment_params
-      params.require(:comment).permit(
-        :body,
-        :holiday_id,
-        :user_id
-      )
+      params.require(:comment).permit(:body, :holiday_id, :user_id)
     end
 end

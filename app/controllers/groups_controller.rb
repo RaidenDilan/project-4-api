@@ -1,6 +1,6 @@
 class GroupsController < ApplicationController
   before_action :set_group, only: [:show, :update, :destroy]
-  skip_before_action :authenticate_user!, only: [:index, :show] # for any page except for index and show pages, ...
+  skip_before_action :authenticate_user!
 
   # GET /groups
   def index
@@ -11,6 +11,7 @@ class GroupsController < ApplicationController
 
   # GET /groups/1
   def show
+    # @users = User.all
     render json: @group
   end
 
@@ -31,8 +32,6 @@ class GroupsController < ApplicationController
     return render json: { errors: ["Unauthorized"] } if @group.creator != current_user
 
     @group.creator = current_user
-    # @group.users << @user unless @group.users.include? @user
-    # @membership = current_user.memberships.find(params[:id])
 
     if @group.update(group_params)
       render json: @group

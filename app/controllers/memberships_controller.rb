@@ -1,35 +1,13 @@
 class MembershipsController < ApplicationController
-  before_action :set_membership, only: [:show, :update, :destroy]
-
-  # GET /memberships
-  def index
-    @memberships = Membership.all
-
-    render json: @memberships
-  end
-
-  # GET /memberships/1
-  def show
-    render json: @membership
-  end
+  before_action :set_membership, only: [:destroy]
 
   # POST /memberships
   def create
     @membership = Membership.new(membership_params)
     # @membership.user = current_user
-    # @group = @membership.group.name
 
     if @membership.save
       render json: @membership, status: :created, location: @membership
-    else
-      render json: @membership.errors, status: :unprocessable_entity
-    end
-  end
-
-  # PATCH/PUT /memberships/1
-  def update
-    if @membership.update(membership_params)
-      render json: @membership
     else
       render json: @membership.errors, status: :unprocessable_entity
     end
@@ -48,9 +26,6 @@ class MembershipsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def membership_params
-      params.require(:membership).permit(
-        :user_id,
-        :group_id
-      )
+      params.require(:membership).permit(:user_id, :group_id)
     end
 end

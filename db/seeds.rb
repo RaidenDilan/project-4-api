@@ -9,9 +9,10 @@ end
 # time.strftime("Today is %A")     # "Today is Sunday"
 # time.strftime("%d of %B, %Y")    # "21 of December, 2015"
 # time.strftime("Unix time is %s") # "Unix time is 1449336630
-todayDate = Time.new.strftime("%Y/%m/%d") # "05/12/2015"
+todayDate = Time.new.strftime("%Y/%m/%d") # "2015/12/15"
 # todayDate = Time.new.strftime("%d/%m/%Y") # "05/12/2015"
 # pp todayDate
+p 'todayDate ------------------->', todayDate
 
 raiden = User.create!(username: "Raiden", email: "raiden@me.com", image: File.open(File.join(Rails.root, "db/images/avatar.png")), password: "p", password_confirmation: "p", bio: "Software Engineer", airport: "LHR")
 row = User.create!(username: "Row", email: "row@me.com", image: File.open(File.join(Rails.root, "db/images/avatar.png")), password: "p", password_confirmation: "p", bio: "Masseur", airport: "STN")

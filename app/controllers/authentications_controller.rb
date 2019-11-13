@@ -3,6 +3,9 @@ class AuthenticationsController < ApplicationController
 
   def register
     user = User.new(Uploader.upload(user_params))
+    # @group = Group.find 1 # set group to first group by index
+    @group = null;
+    # @group.users << current_user #
 
     if user.save
       render json: user, status: :ok

@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
-  
+
   scope :api do
-    resources :memberships
+    # resources :memberships
+    resources :memberships, only: [:create, :destroy]
+    resources :comments, only: [:create, :destroy]
     resources :users, except: [:create]
     resources :groups do
       resources :holidays do
-        resources :comments, only: [:create, :destroy]
       end
     end
 
