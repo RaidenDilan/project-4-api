@@ -50,7 +50,6 @@ class UsersController < ApplicationController
         :airport,
         :password,
         :password_confirmation
-        # groups_attending_ids:[]
       )
     end
 end

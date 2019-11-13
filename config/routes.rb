@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
 
   scope :api do
-    # resources :memberships
     resources :memberships, only: [:create, :destroy]
     resources :comments, only: [:create, :destroy]
     resources :users, except: [:create]
@@ -11,7 +10,7 @@ Rails.application.routes.draw do
     end
 
     get 'flights', to: 'skyscanner#flights'
-    get 'weather', to: 'openweather#forecast'
+    # get 'weather', to: 'openweather#forecast'
 
     post 'register', to: 'authentications#register'
     post 'login', to: 'authentications#login'

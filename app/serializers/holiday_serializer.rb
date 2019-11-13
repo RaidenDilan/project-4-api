@@ -8,4 +8,12 @@ class HolidaySerializer < ActiveModel::Serializer
   def image_src
     object.image.url
   end
+
+  private
+    def message_time
+      # created_at.strftime("%Y/%m/%d")
+      # update_at.strftime("%Y/%m/%d")
+      departureDate.strftime("%Y/%m/%d")
+      returnDate.strftime("%Y/%m/%d")
+    end
 end

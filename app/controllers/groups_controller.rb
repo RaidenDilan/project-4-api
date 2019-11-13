@@ -11,7 +11,6 @@ class GroupsController < ApplicationController
 
   # GET /groups/1
   def show
-    # @users = User.all
     render json: @group
   end
 
@@ -30,7 +29,6 @@ class GroupsController < ApplicationController
   # PATCH/PUT /groups/1
   def update
     return render json: { errors: ["Unauthorized"] } if @group.creator != current_user
-
     @group.creator = current_user
 
     if @group.update(group_params)

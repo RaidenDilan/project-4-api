@@ -17,6 +17,7 @@ class ApplicationController < ActionController::API
 
   def current_user
     @current_user ||= User.find(decoded_token[:id]) if id_found?
+    
   rescue
     nil
   end

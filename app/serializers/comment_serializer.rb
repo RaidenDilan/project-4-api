@@ -4,9 +4,9 @@ class CommentSerializer < ActiveModel::Serializer
 
   attributes :id, :body, :created_at, :user, :holiday
 
-  # private
-  #   def comment_time
-  #     created_at.strftime("%d/%m/%y at %l:%M %p")
-  #     # object.created_at.strftime("%d/%m/%y at %l:%M %p")
-  #   end
+  private
+    def comment_time
+      created_at.strftime("%Y/%m/%d")
+      # object.created_at.strftime("%Y/%m/%d")
+    end
 end

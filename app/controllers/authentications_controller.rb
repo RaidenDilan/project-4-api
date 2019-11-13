@@ -26,15 +26,15 @@ class AuthenticationsController < ApplicationController
   end
 
   private
-  def user_params
-    params.permit(
-      :username,
-      :email,
-      :password,
-      :password_confirmation,
-      :base64,
-      :bio,
-      :airport
-    )
-  end
+    def user_params
+      params.permit(
+        :username,
+        :email,
+        :password,
+        :password_confirmation,
+        :base64,
+        :bio,
+        :airport
+      )
+    end
 end
