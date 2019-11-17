@@ -1,7 +1,7 @@
 class HolidaysController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_holiday, only: [:show, :update, :destroy]
   before_action :get_group, only: [:create, :destroy]
-  skip_before_action :authenticate_user!
 
   # GET /holidays
   def index

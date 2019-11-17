@@ -74,7 +74,7 @@ ActiveRecord::Schema.define(version: 20191105024446) do
     t.datetime "updated_at",      null: false
     t.string   "password_digest"
     t.integer  "github_id"
-    t.integer  "facebook_id"
+    t.bigint   "facebook_id"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
   end
 

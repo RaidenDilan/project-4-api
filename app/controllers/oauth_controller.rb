@@ -11,22 +11,20 @@ class OauthController < ApplicationController
       headers: { 'Accept' => 'application/json' } # I WANT BACK JSON FORMAT, NOTHING ELSE, THIS IS WHAT WE'RE TELLING GITHUB.
     }).parsed_response
 
-    p token
+    p 'TOKEN ------>', token
 
     profile = HTTParty.get('https://api.github.com/user', {
       query: token,
       headers: { 'User-Agent' => 'HTTParty', 'Accept' => 'application/json' }
     }).parsed_response
 
-    p profile
+    p 'PROFILE ------>', profile
 
       user = User.where("email = :email OR github_id = :github_id", email: profile["email"], github_id: profile["id"]).first
-
       user = User.new username: profile["login"], email: profile["email"] unless user
-
       user[:github_id] = profile["id"]
 
-    p user
+    p 'USER ------>', user
 
     if user.save
       token = Auth.issue({ id: user.id })

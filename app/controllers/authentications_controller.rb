@@ -30,11 +30,11 @@ class AuthenticationsController < ApplicationController
       params.permit(
         :username,
         :email,
+        :bio,
+        :airport,
+        :base64,
         :password,
         :password_confirmation,
-        :base64,
-        :bio,
-        :airport
       )
     end
 end
