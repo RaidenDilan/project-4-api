@@ -47,7 +47,6 @@ class UsersController < ApplicationController
         :username,
         :email,
         :base64,
-        :bio,
         :airport,
         :password,
         :password_confirmation

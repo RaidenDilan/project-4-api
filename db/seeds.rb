@@ -8,11 +8,11 @@ dateTwo    = Date.today + 14
 departDate = dateOne.strftime("%Y/%m/%d")
 returnDate = dateTwo.strftime("%Y/%m/%d")
 
-raiden     = User.create!(username: "Raiden", email: "raiden@me.com", image: File.open(File.join(Rails.root, "db/images/avatar.png")), password: "p", password_confirmation: "p", bio: "Software Engineer", airport: "LHR")
-row        = User.create!(username: "Row", email: "row@me.com", image: File.open(File.join(Rails.root, "db/images/avatar.png")), password: "p", password_confirmation: "p", bio: "Masseur", airport: "STN")
-luca       = User.create!(username: "Luca", email: "luca@me.com", image: File.open(File.join(Rails.root, "db/images/avatar.png")), password: "p", password_confirmation: "p", bio: "Hair Dresser, Hair Stylist", airport: "LGW")
-epp        = User.create!(username: "Epp", email: "epp@me.com", image: File.open(File.join(Rails.root, "db/images/avatar.png")), password: "p", password_confirmation: "p", bio: "BM", airport: "LGW")
-ebrio      = User.create!(username: "Ebrio", email: "ebrio@me.com", image: File.open(File.join(Rails.root, "db/images/avatar.png")), password: "p", password_confirmation: "p", bio: "BM", airport: "LGW")
+raiden     = User.create!(username: "Raiden", email: "raiden@me.com", image: File.open(File.join(Rails.root, "db/images/avatar.png")), password: "p", password_confirmation: "p", airport: "LHR")
+row        = User.create!(username: "Row", email: "row@me.com", image: File.open(File.join(Rails.root, "db/images/avatar.png")), password: "p", password_confirmation: "p", airport: "STN")
+luca       = User.create!(username: "Luca", email: "luca@me.com", image: File.open(File.join(Rails.root, "db/images/avatar.png")), password: "p", password_confirmation: "p", airport: "LGW")
+epp        = User.create!(username: "Epp", email: "epp@me.com", image: File.open(File.join(Rails.root, "db/images/avatar.png")), password: "p", password_confirmation: "p", airport: "LGW")
+ebrio      = User.create!(username: "Ebrio", email: "ebrio@me.com", image: File.open(File.join(Rails.root, "db/images/avatar.png")), password: "p", password_confirmation: "p", airport: "LGW")
 
 boys       = Group.create!(name: "The Boys", creator: raiden)
 juicers    = Group.create!(name: "JQs", creator: raiden)

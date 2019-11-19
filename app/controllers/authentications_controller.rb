@@ -2,10 +2,15 @@ class AuthenticationsController < ApplicationController
   skip_before_action :authenticate_user!
 
   def register
+    # if user
+    # p 'user_params -=-===-=-=-=-=', user_params
+    # user = User.new(user_params)
     user = User.new(Uploader.upload(user_params))
     # @group = Group.find 1 # set group to first group by index
     @group = null;
     # @group.users << current_user #
+
+    # p '--------------------------------------> REGISTER', user
 
     if user.save
       render json: user, status: :ok
@@ -30,7 +35,6 @@ class AuthenticationsController < ApplicationController
       params.permit(
         :username,
         :email,
-        :bio,
         :airport,
         :base64,
         :password,

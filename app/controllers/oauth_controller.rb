@@ -4,27 +4,25 @@ class OauthController < ApplicationController
   def github
     token = HTTParty.post('https://github.com/login/oauth/access_token', {
       query: {
-        client_id: ENV["GITHUB_CLIENT_ID"],
-        client_secret: ENV["GITHUB_CLIENT_SECRET"],
-        code: params[:code]
+        client_id: ENV["PR4_GITHUB_CLIENT_ID"],
+        client_secret: ENV["PR4_GITHUB_CLIENT_SECRET"],
+        code: params[:code],
+        redirect_uri: 'http://localhost:7000'
       },
-      headers: { 'Accept' => 'application/json' } # I WANT BACK JSON FORMAT, NOTHING ELSE, THIS IS WHAT WE'RE TELLING GITHUB.
+      headers: { 'Accept' => 'application/json' }
     }).parsed_response
-
-    p 'TOKEN ------>', token
 
     profile = HTTParty.get('https://api.github.com/user', {
       query: token,
       headers: { 'User-Agent' => 'HTTParty', 'Accept' => 'application/json' }
     }).parsed_response
 
-    p 'PROFILE ------>', profile
+    user = User.where("email = :email OR github_id = :github_id", email: profile["email"], github_id: profile["id"]).first
+    user = User.new username: profile["login"], email: profile["email"], airport: "LHR" unless user
 
-      user = User.where("email = :email OR github_id = :github_id", email: profile["email"], github_id: profile["id"]).first
-      user = User.new username: profile["login"], email: profile["email"] unless user
-      user[:github_id] = profile["id"]
-
-    p 'USER ------>', user
+    user[:github_id] = profile["id"]
+    user[:email] = profile["email"]
+    # user[:image]     = profile["avatar_url"]
 
     if user.save
       token = Auth.issue({ id: user.id })
@@ -35,29 +33,28 @@ class OauthController < ApplicationController
   end
 
   def facebook
-    token = HTTParty.get('https://graph.facebook.com/v2.8/oauth/access_token', {
+    token = HTTParty.get('https://graph.facebook.com/v5.0/oauth/access_token', {
       query: {
-        client_id: ENV["FACEBOOK_CLIENT_ID"],
-        redirect_uri: 'http://localhost:7000/',
-        client_secret: ENV["FACEBOOK_CLIENT_SECRET"],
-        code: params[:code]
+        client_id: ENV["PR4_FACEBOOK_CLIENT_ID"],
+        client_secret: ENV["PR4_FACEBOOK_CLIENT_SECRET"],
+        code: params[:code],
+        redirect_uri: "http://localhost:7000/" # redirect_uri: ENV['APP_URL'] + "/" || "http://localhost:7000/"
       },
-      headers: { 'Accept' => 'application/json'}
-    }).parsed_response
-
-    profile = HTTParty.get('https://graph.facebook.com/v2.5/me?fields=id,name,email,picture', {
-      query: token,
       headers: { 'Accept' => 'application/json' }
     }).parsed_response
 
-    p profile
+    profile = HTTParty.get('https://graph.facebook.com/v5.0/me?fields=id,name,email', { # add ,picture.height(961) to query profile_pic
+      query: token,
+      headers: { 'User-Agent' => 'HTTParty', 'Accept' => 'application/json' }
+    }).parsed_response
 
     user = User.where("email = :email OR facebook_id = :facebook_id", email: profile["email"], facebook_id: profile["id"]).first
-
-    user = User.new username: profile["name"], email: profile["email"], image:profile["picture"]["data"]["url"] unless user
+    # image: profile["picture"]["data"]["url"]
+    user = User.new username: profile["name"], email: profile["email"], airport: "LHR" unless user
 
     user[:facebook_id] = profile["id"]
     user[:email] = profile["email"]
+    # user[:image] = profile["picture"]["data"]["url"]
 
     if user.save
       token = Auth.issue({ id: user.id })

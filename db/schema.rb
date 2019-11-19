@@ -69,7 +69,6 @@ ActiveRecord::Schema.define(version: 20191105024446) do
     t.string   "password"
     t.string   "image"
     t.string   "airport"
-    t.text     "bio"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.string   "password_digest"
