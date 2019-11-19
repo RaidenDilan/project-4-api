@@ -7,7 +7,7 @@ class OauthController < ApplicationController
         client_id: ENV["PR4_GITHUB_CLIENT_ID"],
         client_secret: ENV["PR4_GITHUB_CLIENT_SECRET"],
         code: params[:code],
-        redirect_uri: 'http://localhost:7000'
+        redirect_uri: "http://localhost:7000" || "https://palmtrees.herokuapp.com"
       },
       headers: { 'Accept' => 'application/json' }
     }).parsed_response
@@ -38,7 +38,7 @@ class OauthController < ApplicationController
         client_id: ENV["PR4_FACEBOOK_CLIENT_ID"],
         client_secret: ENV["PR4_FACEBOOK_CLIENT_SECRET"],
         code: params[:code],
-        redirect_uri: "http://localhost:7000/" # redirect_uri: ENV['APP_URL'] + "/" || "http://localhost:7000/"
+        redirect_uri: "http://localhost:7000/" || "https://palmtrees.herokuapp.com/" # redirect_uri: ENV['APP_URL'] + "/" || "http://localhost:7000/"
       },
       headers: { 'Accept' => 'application/json' }
     }).parsed_response
