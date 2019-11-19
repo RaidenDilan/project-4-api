@@ -6,8 +6,8 @@ class OauthController < ApplicationController
       query: {
         client_id: ENV["PR4_GITHUB_CLIENT_ID"],
         client_secret: ENV["PR4_GITHUB_CLIENT_SECRET"],
-        code: params[:code],
-        redirect_uri: ENV["PR4_FACBOOK_REDIRECT_URI"] || "http://localhost:7000/"
+        code: params[:code]
+        # redirect_uri: ENV["PR4_FACBOOK_REDIRECT_URI"] || "http://localhost:7000/"
       },
       headers: { 'Accept' => 'application/json' }
     }).parsed_response
@@ -38,7 +38,7 @@ class OauthController < ApplicationController
         client_id: ENV["PR4_FACEBOOK_CLIENT_ID"],
         client_secret: ENV["PR4_FACEBOOK_CLIENT_SECRET"],
         code: params[:code],
-        redirect_uri: ENV["PR4_FACBOOK_REDIRECT_URI"] || "http://localhost:7000/"
+        redirect_uri: ENV["PR4_FACBOOK_REDIRECT_URI"]
       },
       headers: { 'Accept' => 'application/json' }
     }).parsed_response
