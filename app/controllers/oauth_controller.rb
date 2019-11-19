@@ -38,7 +38,7 @@ class OauthController < ApplicationController
         client_id: ENV["PR4_FACEBOOK_CLIENT_ID"],
         client_secret: ENV["PR4_FACEBOOK_CLIENT_SECRET"],
         code: params[:code],
-        redirect_uri: ENV["PR4_FACEBOOK_REDIRECT_URI"]
+        redirect_uri: ENV["PR4_FACEBOOK_REDIRECT_URI"] || "https://palmtrees.herokuapp.com/"
       },
       headers: { 'Accept' => 'application/json' }
     }).parsed_response
@@ -49,8 +49,8 @@ class OauthController < ApplicationController
     }).parsed_response
 
     user = User.where("email = :email OR facebook_id = :facebook_id", email: profile["email"], facebook_id: profile["id"]).first
-    # image: profile["picture"]["data"]["url"]
     user = User.new username: profile["name"], email: profile["email"], airport: "LHR" unless user
+    # image: profile["picture"]["data"]["url"]
 
     user[:facebook_id] = profile["id"]
     user[:email] = profile["email"]
