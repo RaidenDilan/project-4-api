@@ -12,17 +12,23 @@ class OauthController < ApplicationController
       headers: { 'Accept' => 'application/json' }
     }).parsed_response
 
+    # p 'token --->', token
+
     profile = HTTParty.get('https://api.github.com/user', {
       query: token,
       headers: { 'User-Agent' => 'HTTParty', 'Accept' => 'application/json' }
     }).parsed_response
 
+    # p 'profile --->', profile
+
     user = User.where("email = :email OR github_id = :github_id", email: profile["email"], github_id: profile["id"]).first
     user = User.new username: profile["login"], email: profile["email"], airport: "LHR" unless user
+    # p 'user --->', user
 
     user[:github_id] = profile["id"]
     user[:email] = profile["email"]
-    # user[:image]     = profile["avatar_url"]
+    # user[:image] = profile["avatar_url"]
+
 
     if user.save
       token = Auth.issue({ id: user.id })
