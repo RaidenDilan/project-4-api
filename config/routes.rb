@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     post 'login', to: 'authentications#login'
 
     post 'oauth/github', to: 'oauth#github'
-    post 'oauth/facebook', to: 'oauth#facebook'
+    # post 'oauth/facebook', to: 'oauth#facebook'
 
     resources :memberships, only: [:create, :destroy]
     resources :comments, only: [:create, :destroy]
