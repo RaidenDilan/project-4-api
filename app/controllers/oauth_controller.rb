@@ -43,8 +43,8 @@ class OauthController < ApplicationController
       query: {
         client_id: ENV["PR4_FACEBOOK_CLIENT_ID"],
         client_secret: ENV["PR4_FACEBOOK_CLIENT_SECRET"],
-        code: params[:code],
-        redirect_uri: "https://palmtrees.herokuapp.com/"
+        redirect_uri: ENV["PR4_FACEBOOK_REDIRECT_URI"],
+        code: params[:code]
       },
       headers: { 'Accept' => 'application/json' }
     }).parsed_response
