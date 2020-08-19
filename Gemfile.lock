@@ -64,6 +64,10 @@ GEM
       activesupport
     concurrent-ruby (1.1.5)
     crass (1.0.5)
+    dotenv (2.7.6)
+    dotenv-rails (2.7.6)
+      dotenv (= 2.7.6)
+      railties (>= 3.2)
     erubis (2.7.0)
     excon (0.68.0)
     ffi (1.11.2)
@@ -185,6 +189,7 @@ DEPENDENCIES
   byebug
   carrierwave
   carrierwave-base64
+  dotenv-rails
   excon
   flash
   fog-aws

@@ -1,3 +1,5 @@
+gem 'dotenv-rails', groups: [:development, :test]
+
 source 'https://rubygems.org'
 ruby "2.6.5"
 

@@ -1,5 +1,6 @@
 class AuthenticationsController < ApplicationController
-  skip_before_action :authenticate_user!
+  before_validation :downcase_email
+  # skip_before_action :authenticate_user!
 
   def register
     # if user
@@ -31,6 +32,10 @@ class AuthenticationsController < ApplicationController
   end
 
   private
+    # def downcase_email
+    #   self.email = email.downcase if email.present?
+    # end
+
     def user_params
       params.permit(
         :username,
