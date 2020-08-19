@@ -1,5 +1,5 @@
 class AuthenticationsController < ApplicationController
-  before_validation :downcase_email
+  # before_validation :downcase_email
   # skip_before_action :authenticate_user!
 
   def register
